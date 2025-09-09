@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الإعلان الهام</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>نظام الإعلان الهام</h1>
+            <p>إنشاء إعلانات هامة قابلة للتصدير</p>
+        </header>
+
+        <main class="main-content glass-card">
+            <div class="form-group">
+                <label for="announcement-text">نص الإعلان:</label>
+                <textarea id="announcement-text" placeholder="اكتب نص الإعلان الهام هنا..."></textarea>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="grade-select">الفرقة:</label>
+                    <select id="grade-select">
+                        <option value="" disabled selected>اختر الفرقة</option>
+                        <option value="الفرقة الأولى">الفرقة الأولى</option>
+                        <option value="الفرقة الثانية">الفرقة الثانية</option>
+                        <option value="الفرقة الثالثة">الفرقة الثالثة</option>
+                        <option value="الفرقة الرابعة">الفرقة الرابعة</option>
+                    </select>
+                </div>
+                <div class="form-group" id="specialization-row" style="display:none;">
+                    <label for="specialization-select">التخصص:</label>
+                    <select id="specialization-select">
+                        <option value="" disabled selected>اختر التخصص</option>
+                        <option value="محاسبه">محاسبه</option>
+                        <option value="اداره أعمال">اداره أعمال</option>
+                        <option value="اقتصاد">اقتصاد</option>
+                        <option value="احصاء">احصاء</option>
+                        
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="language-select">اللغة:</label>
+                <select id="language-select">
+                    <option value="" disabled selected>اختر اللغة</option>
+                    <option value="عربي">عربي</option>
+                    <option value="إنجليزي">إنجليزي</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="admin-signature">توقيع الأدمن:</label>
+                <input type="text" id="admin-signature" readonly placeholder="سيظهر توقيع الأدمن هنا">
+            </div>
+
+            <button class="btn btn-primary export-btn" onclick="exportAsImage()">تصدير كصورة</button>
+        </main>
+    </div>
+
+    <!-- Export View (Hidden by default) -->
+    <div id="export-view">
+        <div class="export-container">
+            <div class="export-header">
+                <div class="export-header-right">
+                    <img id="export-logo-image" src="logo.jpeg" alt="شعار الجامعة">
+                </div>
+                <div class="export-header-center">
+                    <h2 class="college-name">كلية التجارة</h2>
+                    <h3 class="university-name">جامعة كفر الشيخ</h3>
+                    <h1 class="table-title">إعلان هام</h1>
+                </div>
+                <div class="export-header-left">
+                    <div id="export-grade"></div>
+                    <div id="export-date"></div>
+                </div>
+            </div>
+            <div class="export-body">
+                <div class="export-announcement-area">
+                    <p id="export-announcement-text" class="export-announcement-text"></p>
+                    <div class="export-batch-qr">
+                        <div class="export-batch-qr-title">جروب الدفعة</div>
+                        <img id="export-batch-qr-img" alt="رمز جروبات الدفعة" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="export-footer">
+                <div id="export-code"></div>
+                <div id="export-admin-signature"></div>
+                <div class="developer-credit">تم تطوير وبرمجه هذا النظام بواسطه طه شيحه</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+

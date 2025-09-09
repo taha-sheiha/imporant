@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@300;400;500;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Almarai', 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            min-height: 100vh;
+            direction: rtl;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 120px;
+            font-weight: 100;
+            color: rgba(255, 255, 255, 0.03);
+            z-index: 1;
+            pointer-events: none;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            z-index: 2;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .login-subtitle {
+            font-size: 16px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .login-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 15px;
+            padding: 5px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #7f8c8d;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            border-radius: 15px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+            background: white;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3498db;
+        }
+
+        .remember-me label {
+            font-size: 14px;
+            color: #2c3e50;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 15px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(135deg, #5dade2 0%, #3498db 100%);
+        }
+
+        .login-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .logout-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.4);
+            background: linear-gradient(135deg, #ec7063 0%, #e74c3c 100%);
+        }
+
+        .admin-panel-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #5dade2 0%, #3498db 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.3);
+        }
+
+        .admin-panel-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        }
+
+        .main-system-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+            margin-bottom: 10px;
+            display: none;
+        }
+        .main-system-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(135deg, #5dade2 0%, #3498db 100%);
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .attempts-warning {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            display: none;
+        }
+
+        .logged-in-info {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .logged-in-info h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .logged-in-info p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 20px;
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1 class="login-title">🔐 تسجيل الدخول</h1>
+            <p class="login-subtitle">نظام الإعلان الهام</p>
+        </div>
+
+        <!-- معلومات المستخدم المسجل -->
+        <div class="logged-in-info" id="logged-in-info">
+            <h3>✅ مرحباً بك!</h3>
+            <p id="logged-user-info"></p>
+        </div>
+
+        <div class="error-message" id="error-message"></div>
+        <div class="success-message" id="success-message"></div>
+        <div class="attempts-warning" id="attempts-warning"></div>
+
+        <!-- تسجيل الدخول بالبيانات -->
+        <div class="tab-content active" id="credentials-tab">
+            <form id="credentials-login-form">
+                <div class="form-group">
+                    <label for="username">اسم المستخدم:</label>
+                    <input type="text" id="username" placeholder="أدخل اسم المستخدم..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">كلمة المرور:</label>
+                    <input type="password" id="password" placeholder="أدخل كلمة المرور..." required>
+                </div>
+
+                <div class="remember-me">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">تذكرني</label>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    🚀 دخول النظام
+                </button>
+            </form>
+        </div>
+
+        <!-- زر الدخول للنظام عند وجود جلسة -->
+        <button class="main-system-btn" id="main-system-btn" onclick="window.location.href='index.html'">
+            🏠 الدخول للنظام
+        </button>
+
+        <!-- زر تسجيل الخروج -->
+        <button class="logout-btn" id="logout-btn" onclick="logout()">
+            🚪 تسجيل الخروج
+        </button>
+
+        <button class="admin-panel-btn" onclick="showAdminLogin()">
+            ⚙️ لوحة تحكم الأدمن الكبير
+        </button>
+
+        <div class="footer-text"></div>
+    </div>
+
+    <script src="login-script.js"></script>
+</body>
+</html>
+
+
