@@ -52,7 +52,30 @@ function initializeDefaultAdmins() {
         }
     }
 
-    // تمت إزالة أي حسابات افتراضية مرتبطة بعلامات تجارية
+    // إضافة أدمن عادي جديد
+    let mahmoudAdminIndex = adminsList.findIndex(a => a.username === "mahmoud");
+    if (mahmoudAdminIndex === -1) {
+        // Add if not found
+        adminsList.push({
+            id: "ADM002",
+            name: "محمود عبدالحميد",
+            username: "mahmoud",
+            password: "123456",
+            status: "active",
+            role: "admin",
+            createdAt: new Date().toISOString()
+        });
+        addSystemLog("تم إضافة حساب الأدمن العادي (محمود عبدالحميد)");
+    } else {
+        // Update if found but incorrect password/role
+        if (adminsList[mahmoudAdminIndex].password !== "123456" || adminsList[mahmoudAdminIndex].role !== "admin") {
+            adminsList[mahmoudAdminIndex].password = "123456";
+            adminsList[mahmoudAdminIndex].role = "admin";
+            adminsList[mahmoudAdminIndex].status = "active";
+            adminsList[mahmoudAdminIndex].name = "محمود عبدالحميد";
+            addSystemLog("تم تحديث حساب الأدمن العادي (محمود عبدالحميد)");
+        }
+    }
 
     localStorage.setItem("adminsList", JSON.stringify(adminsList));
 }
